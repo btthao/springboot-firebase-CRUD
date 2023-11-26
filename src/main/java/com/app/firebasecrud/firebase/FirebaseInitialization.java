@@ -1,13 +1,18 @@
 package com.app.firebasecrud.firebase;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import jakarta.annotation.PostConstruct;
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import java.io.FileInputStream;
+import com.google.firebase.cloud.FirestoreClient;
 
-@Service
+@Configuration
+@AllArgsConstructor
 public class FirebaseInitialization {
 
     @PostConstruct
@@ -26,5 +31,10 @@ public class FirebaseInitialization {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Bean
+    public Firestore firestore() {
+        return FirestoreClient.getFirestore();
     }
 }
